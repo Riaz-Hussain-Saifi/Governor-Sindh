@@ -1,5 +1,8 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label"; 
 
 const Result = () => {
   // Initialize state for form data, with default values for 'registrationNumber' and 'cnicNumber'
@@ -16,7 +19,7 @@ const Result = () => {
     // You can replace the console.log with an actual API call or form processing logic
   };
 
-  // Handle change in form inputs. This updates the formData state dynamically based on input field name and value
+  // Handle change in form is. This updates the formData state dynamically based on Input field name and value
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -36,15 +39,15 @@ const Result = () => {
 
         {/* Form starts here */}
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Registration Number input field */}
+          {/* Registration Number Input field */}
           <div className="space-y-2">
-            <label 
+            <Label 
               htmlFor="registrationNumber" 
               className="block text-gray-700 text-lg font-medium"
             >
               Registration Number <span className="text-red-500">*</span>
-            </label>
-            <input
+            </Label>
+            <Input
               type="text"
               id="registrationNumber"
               name="registrationNumber"
@@ -52,21 +55,21 @@ const Result = () => {
               onChange={handleChange}
               placeholder="Registration Number"
               className="w-full p-3 border border-gray-300 rounded-md bg-gray-50 
-                       focus:outline-none focus:ring-2 focus:ring-blue-500 
+                     focus:outline-none focus:ring-2 focus:ring-blue-500 
                        focus:border-blue-500 transition-all"
               required
             />
           </div>
 
-          {/* CNIC or B-Form input field */}
+          {/* CNIC or B-Form Input field */}
           <div className="space-y-2">
-            <label 
+            <Label 
               htmlFor="cnicNumber" 
               className="block text-gray-700 text-lg font-medium"
             >
               CNIC or B-Form Number <span className="text-red-500">*</span>
-            </label>
-            <input
+            </Label>
+            <Input
               type="text"
               id="cnicNumber"
               name="cnicNumber"
@@ -82,13 +85,13 @@ const Result = () => {
 
           {/* Submit button */}
           <div className="flex justify-center pt-4">
-            <button
+            <Button
               type="submit"
               className="bg-blue-800 text-white font-bold py-3 px-12 rounded
                        hover:bg-blue-900 transition-colors duration-200 uppercase"
             >
               Get Result
-            </button>
+            </Button>
           </div>
         </form>
       </div>

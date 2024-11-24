@@ -1,8 +1,26 @@
 {
-  "extends": "next",
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "varsIgnorePattern": "^_",
+        "argsIgnorePattern": "^_",
+        "ignoreRestSiblings": true,
+        "destructuredArrayIgnorePattern": "^_"
+      }
+    ]
+  },
   "settings": {
     "next": {
-      "rootDir": "packages/src/app/page"
+      "rootDir": "src"
     }
   }
 }

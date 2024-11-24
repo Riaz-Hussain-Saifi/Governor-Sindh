@@ -1,17 +1,12 @@
 "use client"
 
-// Inspired by react-hot-toast library
 import * as React from "react"
-
-import type {
-  ToastActionElement,
-  ToastProps,
-} from "@/components/ui/toast"
+import type { ToastActionElement, ToastProps } from "@/components/ui/toast"
 
 const TOAST_LIMIT = 1
 const TOAST_REMOVE_DELAY = 1000000
 
-type ToasterToast = ToastProps & {
+type ToasterToastProps = ToastProps & {
   id: string
   title?: React.ReactNode
   description?: React.ReactNode
@@ -28,7 +23,7 @@ const actionTypes = {
 let count = 0
 
 function genId() {
-  count = (count + 1) % Number.MAX_SAFE_INTEGER
+  count = (count + 1) % Number.MAX_VALUE
   return count.toString()
 }
 
@@ -37,23 +32,23 @@ type ActionType = typeof actionTypes
 type Action =
   | {
       type: ActionType["ADD_TOAST"]
-      toast: ToasterToast
+      toast: ToasterToastProps
     }
   | {
       type: ActionType["UPDATE_TOAST"]
-      toast: Partial<ToasterToast>
+      toast: Partial<ToasterToastProps>
     }
   | {
       type: ActionType["DISMISS_TOAST"]
-      toastId?: ToasterToast["id"]
+      toastId?: ToasterToastProps["id"]
     }
   | {
       type: ActionType["REMOVE_TOAST"]
-      toastId?: ToasterToast["id"]
+      toastId?: ToasterToastProps["id"]
     }
 
 interface State {
-  toasts: ToasterToast[]
+  toasts: ToasterToastProps[]
 }
 
 const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>()
@@ -74,7 +69,7 @@ const addToRemoveQueue = (toastId: string) => {
   toastTimeouts.set(toastId, timeout)
 }
 
-export const reducer = (state: State, action: Action): State => {
+const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "ADD_TOAST":
       return {
@@ -93,8 +88,6 @@ export const reducer = (state: State, action: Action): State => {
     case "DISMISS_TOAST": {
       const { toastId } = action
 
-      // ! Side effects ! - This could be extracted into a dismissToast() action,
-      // but I'll keep it here for simplicity
       if (toastId) {
         addToRemoveQueue(toastId)
       } else {
@@ -140,12 +133,12 @@ function dispatch(action: Action) {
   })
 }
 
-type Toast = Omit<ToasterToast, "id">
+type Toast = Omit<ToasterToastProps, "id">
 
 function toast({ ...props }: Toast) {
   const id = genId()
 
-  const update = (props: ToasterToast) =>
+  const update = (props: ToasterToastProps) =>
     dispatch({
       type: "UPDATE_TOAST",
       toast: { ...props, id },
@@ -192,3 +185,4 @@ function useToast() {
 }
 
 export { useToast, toast }
+export type { ToasterToastProps as Toast }

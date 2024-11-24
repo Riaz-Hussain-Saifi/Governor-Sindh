@@ -15,6 +15,7 @@ const Navbar = () => {
   // State for handling dropdown visibility (for Courses)
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+ 
   return (
     <div className="sticky top-0 z-30 w-full bg-[#004B87] backdrop-blur-md">
       {/* Navbar container */}
@@ -55,9 +56,9 @@ const Navbar = () => {
 
               {/* Dropdown for Courses */}
               <div
+                id="CourseButton"
                 className="relative cursor-pointer"
-                onClick={() => setDropdownOpen(true)} // Open dropdown on click
-                onAuxClick={() => setDropdownOpen(false)} // Close dropdown on auxiliary click
+                onClick={() => setDropdownOpen(!dropdownOpen)} // Toggle dropdown on click
               >
                 <div className="flex items-center hover:text-gray-200">
                   Courses <IoIosArrowDown className="ml-1 mt-2" />
